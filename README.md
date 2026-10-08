@@ -19,3 +19,5 @@
 #请执行如下命令
 sudo xattr -rd com.apple.quarantine "/Applications/Hiviewer.app"
 ```
+#### 插件开发指南
+> 请查看plugins文件夹下README.md了解具体的开发指南内容
