@@ -1,0 +1,42 @@
+{
+  "manifestVersion": 1,
+  "apiVersion": 1,
+  "version": "1.0.0",
+  "author": "Hiviewer contributors",
+  "entry": "main.js",
+  "configuration": [],
+  "dataVersion": 1,
+  "id": "org.hiviewer.example.exif-provider",
+  "name": "EXIF inspection",
+  "description": "Example: EXIF inspection",
+  "permissions": [
+    "selection.read",
+    "metadata.read"
+  ],
+  "commands": [
+    {
+      "id": "run",
+      "title": "EXIF inspection",
+      "contexts": [
+        "selection"
+      ],
+      "requiresSelection": true,
+      "handler": "worker"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "exif-provider",
+      "kind": "exif-provider",
+      "title": "EXIF inspection",
+      "command": "run"
+    },
+    {
+      "id": "exif-details",
+      "kind": "details-panel",
+      "title": "EXIF inspection",
+      "command": "run",
+      "mediaTypes": ["image"]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "manifestVersion": 1,
+  "apiVersion": 1,
+  "version": "1.0.0",
+  "author": "Hiviewer contributors",
+  "entry": "main.js",
+  "configuration": [],
+  "dataVersion": 1,
+  "id": "org.hiviewer.example.rust-analysis",
+  "name": "Rust file analysis",
+  "description": "Example: Rust file analysis",
+  "permissions": [
+    "selection.read",
+    "native.execute"
+  ],
+  "commands": [
+    {
+      "id": "run",
+      "title": "Rust file analysis",
+      "contexts": [
+        "selection"
+      ],
+      "requiresSelection": true,
+      "handler": "sidecar",
+      "method": "analyze/files"
+    }
+  ],
+  "contributions": [
+    {
+      "id": "rust-analysis",
+      "kind": "image-analysis",
+      "title": "Rust file analysis",
+      "command": "run"
+    }
+  ],
+  "backend": {
+    "executable": "bin/hiviewer-example-sidecar.exe",
+    "target": "windows-x86_64",
+    "transport": "stdio-framed"
+  }
+}

@@ -1,0 +1,5 @@
+<main><h2>Image processing preview</h2><p>Oriented sRGB preview, maximum 2048 pixels. Export creates a new PNG.</p>
+<label>Exposure <input id="exposure" type="range" min="-2" max="2" step="0.1" value="0"></label>
+<button id="save" disabled>Export preview</button><p id="status" role="status"></p><canvas id="preview"></canvas></main>
+<style>main{padding:16px}canvas{max-width:100%;height:auto}button{background:var(--hiviewer-accent);color:var(--hiviewer-background);border:1px solid var(--hiviewer-border);padding:8px}input{accent-color:var(--hiviewer-accent)}</style>
+<script type="module" src="ui/view.js"></script>

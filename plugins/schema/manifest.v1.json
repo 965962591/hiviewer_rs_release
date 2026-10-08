@@ -1,0 +1,386 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:hiviewer:plugin-manifest:1",
+  "title": "Hiviewer Plugin Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "manifestVersion",
+    "apiVersion",
+    "id",
+    "name",
+    "version",
+    "author",
+    "description",
+    "entry",
+    "permissions",
+    "commands"
+  ],
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9.-]{0,95}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "path": {
+      "type": "string",
+      "maxLength": 240,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(?:/|$))[^\\\\:\\u0000]+$"
+    }
+  },
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "manifestVersion": {
+      "const": 1
+    },
+    "apiVersion": {
+      "const": 1
+    },
+    "id": {
+      "$ref": "#/$defs/id"
+    },
+    "name": {
+      "$ref": "#/$defs/title"
+    },
+    "author": {
+      "$ref": "#/$defs/title"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]{0,7})\\.(0|[1-9][0-9]{0,7})\\.(0|[1-9][0-9]{0,7})$"
+    },
+    "entry": {
+      "const": "main.js"
+    },
+    "dataVersion": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 1000000,
+      "default": 1
+    },
+    "permissions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "selection.read",
+          "metadata.read",
+          "media.read",
+          "viewer.compare",
+          "storage",
+          "notifications",
+          "native.execute",
+          "files.export",
+          "image.decode"
+        ]
+      }
+    },
+    "commands": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "title"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "title": {
+            "$ref": "#/$defs/title"
+          },
+          "contexts": {
+            "type": "array",
+            "maxItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "const": "selection"
+            }
+          },
+          "requiresSelection": {
+            "type": "boolean",
+            "default": false
+          },
+          "handler": {
+            "enum": [
+              "worker",
+              "view",
+              "sidecar"
+            ],
+            "default": "worker"
+          },
+          "method": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^(?!(?:plugin|host)/)[A-Za-z0-9/_.-]+$"
+          }
+        }
+      }
+    },
+    "configuration": {
+      "type": "array",
+      "maxItems": 32,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "key",
+          "title",
+          "type",
+          "default"
+        ],
+        "properties": {
+          "key": {
+            "$ref": "#/$defs/id"
+          },
+          "title": {
+            "$ref": "#/$defs/title"
+          },
+          "type": {
+            "enum": [
+              "string",
+              "number",
+              "boolean"
+            ]
+          },
+          "default": {
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ]
+          }
+        }
+      }
+    },
+    "backend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executable",
+        "target"
+      ],
+      "properties": {
+        "executable": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/path"
+            },
+            {
+              "pattern": "^bin/"
+            }
+          ]
+        },
+        "target": {
+          "enum": [
+            "windows-x86_64",
+            "windows-aarch64",
+            "macos-x86_64",
+            "macos-aarch64",
+            "linux-x86_64",
+            "linux-aarch64"
+          ]
+        },
+        "transport": {
+          "enum": [
+            "stdio-jsonl",
+            "stdio-framed"
+          ],
+          "default": "stdio-jsonl"
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry"
+      ],
+      "properties": {
+        "entry": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/path"
+            },
+            {
+              "pattern": "^ui/.*\\.html$"
+            }
+          ]
+        }
+      }
+    },
+    "contributions": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "title",
+          "command"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "kind": {
+            "enum": [
+              "image-analysis",
+              "image-viewer",
+              "video-viewer",
+              "exif-provider",
+              "details-panel"
+            ]
+          },
+          "title": {
+            "$ref": "#/$defs/title"
+          },
+          "command": {
+            "$ref": "#/$defs/id"
+          },
+          "mediaTypes": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2,
+            "uniqueItems": true,
+            "items": { "enum": ["image", "video"] }
+          }
+        },
+        "if": { "required": ["mediaTypes"] },
+        "then": { "properties": { "kind": { "const": "details-panel" } } }
+      }
+    },
+    "localizations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "string"
+        }
+      }
+    },
+    "imageDecoders": {
+      "type": "array",
+      "maxItems": 16,
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "extensions",
+          "probe",
+          "decode"
+        ],
+        "properties": {
+          "id": {
+            "$ref": "#/$defs/id"
+          },
+          "extensions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 32,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]{1,16}$"
+            }
+          },
+          "probe": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^(?!(?:plugin|host)/)[A-Za-z0-9/_.-]+$"
+          },
+          "decode": {
+            "type": "string",
+            "maxLength": 128,
+            "pattern": "^(?!(?:plugin|host)/)[A-Za-z0-9/_.-]+$"
+          }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "anyOf": [
+        {
+          "properties": {
+            "commands": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "required": [
+            "imageDecoders"
+          ],
+          "properties": {
+            "imageDecoders": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    {
+      "if": {
+        "required": [
+          "imageDecoders"
+        ],
+        "properties": {
+          "imageDecoders": {
+            "minItems": 1
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "backend"
+        ],
+        "properties": {
+          "backend": {
+            "required": [
+              "transport"
+            ],
+            "properties": {
+              "transport": {
+                "const": "stdio-framed"
+              }
+            }
+          },
+          "permissions": {
+            "allOf": [
+              {
+                "contains": {
+                  "const": "image.decode"
+                }
+              },
+              {
+                "contains": {
+                  "const": "native.execute"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

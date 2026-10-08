@@ -1,0 +1,19 @@
+{
+  "manifestVersion": 1,
+  "apiVersion": 1,
+  "id": "org.hiviewer.example.details-panel",
+  "name": "File details",
+  "version": "1.0.0",
+  "author": "Hiviewer contributors",
+  "description": "Interactive file information inside the image and video details sidebar.",
+  "entry": "main.js",
+  "permissions": ["selection.read"],
+  "commands": [{ "id": "inspect", "title": "%title%", "handler": "view", "requiresSelection": true }],
+  "ui": { "entry": "ui/index.html" },
+  "contributions": [{ "id": "file-details", "kind": "details-panel", "title": "%title%", "command": "inspect", "mediaTypes": ["image", "video"] }],
+  "localizations": {
+    "en-US": { "title": "File information" },
+    "zh-CN": { "title": "文件信息" },
+    "zh-TW": { "title": "檔案資訊" }
+  }
+}

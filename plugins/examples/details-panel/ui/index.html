@@ -1,0 +1,15 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body { margin: 12px; font: 13px var(--hiviewer-font); background: var(--hiviewer-background); color: var(--hiviewer-text); }
+  input { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid var(--hiviewer-border); border-radius: 4px; color: inherit; background: inherit; }
+  input:focus-visible { outline: 2px solid var(--hiviewer-accent); }
+  dt { opacity: .7; margin-top: 8px; }
+  dd { margin: 3px 0 0; overflow-wrap: anywhere; }
+  #status { overflow-wrap: anywhere; }
+</style></head><body>
+<input id="search" type="search"><div id="status" role="status"></div><dl id="fields"></dl>
+<script type="module" src="ui/view.js"></script>
+</body></html>

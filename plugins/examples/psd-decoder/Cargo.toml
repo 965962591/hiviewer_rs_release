@@ -1,0 +1,11 @@
+[package]
+name = "hiviewer-psd-decoder"
+version = "1.0.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+hiviewer-plugin-sdk = { path = "../../sdk/rust" }
+image = { version = "=0.25.10", default-features = false, features = ["png"] }
+flate2 = "=1.1.9"
+lcms2 = { version = "=6.2.0", features = ["static"] }

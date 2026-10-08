@@ -1,0 +1,32 @@
+{
+  "$schema": "../../schema/manifest.v1.json",
+  "manifestVersion": 1,
+  "apiVersion": 1,
+  "id": "example.psd-decoder",
+  "name": "PSD image decoder",
+  "version": "1.0.0",
+  "author": "Hiviewer examples",
+  "description": "Display RGB 8-bit PSD composite images in the main list and image viewer, with embedded ICC conversion to sRGB.",
+  "entry": "main.js",
+  "permissions": [
+    "native.execute",
+    "image.decode"
+  ],
+  "commands": [],
+  "configuration": [],
+  "backend": {
+    "executable": "bin/hiviewer-psd-decoder.exe",
+    "target": "windows-x86_64",
+    "transport": "stdio-framed"
+  },
+  "imageDecoders": [
+    {
+      "id": "psd",
+      "extensions": [
+        "psd"
+      ],
+      "probe": "psd/probe",
+      "decode": "psd/decode"
+    }
+  ]
+}
