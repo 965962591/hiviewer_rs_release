@@ -1,4 +1,4 @@
-![hiviewer](https://socialify.git.ci/965962591/hiviewer_rs_release/image?language=1&name=1&owner=1&theme=Auto)
+![hiviewer](https://socialify.git.ci/965962591/hiviewer_rs_release/image?custom_language=Rust&language=1&name=1&theme=Auto)
 
 ![Downloads](https://img.shields.io/github/downloads/965962591/hiviewer_rs_release/total?label=downloads)
 ![version](https://img.shields.io/github/release/965962591/hiviewer_rs_release.svg)
